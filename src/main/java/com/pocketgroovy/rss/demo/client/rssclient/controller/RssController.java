@@ -1,7 +1,5 @@
 package com.pocketgroovy.rss.demo.client.rssclient.controller;
 
-import com.pocketgroovy.rss.demo.client.rssclient.config.WebClientConfig;
-import com.pocketgroovy.rss.demo.client.rssclient.dto.FeedDTO;
 import com.pocketgroovy.rss.demo.client.rssclient.service.RssService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,23 +12,25 @@ import reactor.core.publisher.Mono;
 @Controller
 public class RssController {
     @Autowired
-    private WebClientConfig webClientConfig;
-
-    @Autowired
     private RssService rssService;
-
-    private FeedDTO res;
 
     @GetMapping("/get_feed")
     public Mono<String> getFeed(Model model) {
-        Mono<FeedDTO> feedDTOMono = rssService.getFeedById("5");
-
-        log.info(String.valueOf("accessed"));
-
-        return feedDTOMono.map(data -> {
-            model.addAttribute("dataValue", data);
-            return "home/index";
+        return rssService.getFeedById("5").log("Debug").map(data -> {
+            model.addAttribute("metaData", data);
+            return "index";
         });
     }
 
+    @GetMapping("/get_entry")
+    public Mono<String> getEntry(Model model) {
+        return rssService.getFeedEntryById("5").log("Debug").doOnNext(data->
+                model.addAttribute("entryData", data)).then(Mono.just("index"));
+    }
+
+    @GetMapping("/")
+    public Mono<String> getEntries(Model model) {
+        return  rssService.getAllFeedEntriesForFeedId("5").log("Debug").collectList().doOnNext(data->
+                model.addAttribute("entryListData", data)).then(Mono.just("index"));
+    }
 }

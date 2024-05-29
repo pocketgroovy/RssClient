@@ -36,11 +36,11 @@ public class RssService {
                 .doOnError(e -> log.error("Error occurred on getFeedEntryById", e));
     }
 
-    public Flux<String> getAllFeedEntriesForFeedId(String id) {
+    public Flux<FeedEntryDTO> getAllFeedEntriesForFeedId(String id) {
         return webClient.get()
                 .uri("/get_all_messages_by_id/{id}", id)
                 .retrieve()
-                .bodyToFlux(String.class)
+                .bodyToFlux(FeedEntryDTO.class)
                 .doOnError(e -> log.error("Error occurred on getAllFeedEntriesForFeedId", e));
     }
 }
