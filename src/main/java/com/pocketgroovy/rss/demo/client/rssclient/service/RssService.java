@@ -28,6 +28,23 @@ public class RssService {
                 .doOnError(e -> log.error("Error occurred on getFeedById", e));
     }
 
+    public Mono<FeedDTO> getMostRecentFeedByPubId(String pubId) {
+        return webClient.get()
+                .uri("/get_most_recent_feed_by_pubId/{id}", pubId)
+                .retrieve()
+                .bodyToMono(FeedDTO.class)
+                .doOnError(e -> log.error("Error occurred on getFeedById", e));
+    }
+
+
+    public Flux<FeedDTO> getAllFeedsByPubId(String pubId) {
+        return webClient.get()
+                .uri("/get_all_feeds_by_pubId/{id}", pubId)
+                .retrieve()
+                .bodyToFlux(FeedDTO.class)
+                .doOnError(e -> log.error("Error occurred on getFeedById", e));
+    }
+
     public Mono<FeedEntryDTO> getFeedEntryById(String id) {
         return webClient.get()
                 .uri("/get_message/{id}", id)
@@ -38,7 +55,7 @@ public class RssService {
 
     public Flux<FeedEntryDTO> getAllFeedEntriesForFeedId(String id) {
         return webClient.get()
-                .uri("/get_all_messages_by_id/{id}", id)
+                .uri("/get_all_messages_by_feedId/{id}", id)
                 .retrieve()
                 .bodyToFlux(FeedEntryDTO.class)
                 .doOnError(e -> log.error("Error occurred on getAllFeedEntriesForFeedId", e));

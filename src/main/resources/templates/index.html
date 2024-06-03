@@ -40,7 +40,8 @@
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <div class="site-heading">
                             <h1>RSS Feed Reader</h1>
-                            <span class="subheading">Subscribing 3 RSS Feeds</span>
+                            <span class="subheading">Subscribing 3 RSS Feeds: NYT, WSJ and BBC</span>
+
                         </div>
                     </div>
                 </div>
@@ -49,9 +50,10 @@
         <!-- Main Content-->
         <div class="container px-4 px-lg-5" >
             <div class="row gx-4 gx-lg-5 justify-content-center">
-                <div class="col-sm" th:if="${entryListData != null}">
+                <div class="col-sm" th:if="${entryListData1 != null}">
                     <!-- Post preview-->
-                    <div th:each="entry : ${entryListData}">
+                    <h1 class="title" th:text=${pubName1}></h1>
+                    <div th:each="entry : ${entryListData1}">
                     <div class="post-preview" >
                         <a th:href="${entry.link}" target="_blank">
                             <h2 class="post-title" th:text="${entry.title}">Loading...</h2>
@@ -60,16 +62,17 @@
                         <p class="post-meta">
                             Posted by
                             <a th:href="${entry.link}" target="_blank" th:text="${entry.author}">Loading...</a>
-                            on September 24, 2023
+                            on <span th:text="${entry.pubDate}"></span>
                         </p>
                     </div>
                     <!-- Divider-->
                     <hr class="my-4" />
                     </div>
                 </div>
-                <div class="col-sm" th:if="${entryListData != null}">
+                <div class="col-sm" th:if="${entryListData2 != null}">
                     <!-- Post preview-->
-                    <div th:each="entry : ${entryListData}">
+                    <h1 th:text=${pubName2}></h1>
+                    <div th:each="entry : ${entryListData2}">
                         <div class="post-preview" >
                             <a th:href="${entry.link}" target="_blank">
                                 <h2 class="post-title" th:text="${entry.title}">Loading...</h2>
@@ -78,16 +81,16 @@
                             <p class="post-meta">
                                 Posted by
                                 <a th:href="${entry.link}" target="_blank" th:text="${entry.author}">Loading...</a>
-                                on September 24, 2023
-                            </p>
+                                on <span th:text="${entry.pubDate}"></span>
                         </div>
                         <!-- Divider-->
                         <hr class="my-4" />
                     </div>
                 </div>
-                <div class="col-sm" th:if="${entryListData != null}">
+                <div class="col-sm" th:if="${entryListData3 != null}">
                     <!-- Post preview-->
-                    <div th:each="entry : ${entryListData}">
+                    <h1 th:text=${pubName3}></h1>
+                    <div th:each="entry : ${entryListData3}">
                         <div class="post-preview" >
                             <a th:href="${entry.link}" target="_blank">
                                 <h2 class="post-title" th:text="${entry.title}">Loading...</h2>
@@ -96,7 +99,7 @@
                             <p class="post-meta">
                                 Posted by
                                 <a th:href="${entry.link}" target="_blank" th:text="${entry.author}">Loading...</a>
-                                on September 24, 2023
+                                on <span th:text="${entry.pubDate}"></span>
                             </p>
                         </div>
                         <!-- Divider-->
