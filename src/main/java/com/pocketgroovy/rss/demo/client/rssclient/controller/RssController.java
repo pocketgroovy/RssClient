@@ -13,7 +13,6 @@ import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 @Controller
@@ -27,6 +26,11 @@ public class RssController {
         this.publishers = publishers;
     }
 
+    @GetMapping("/about")
+    public String about(Model model) {
+              return "about";
+    }
+
     @GetMapping("/get_entry")
     public Mono<String> getEntry(Model model) {
         return rssService.getFeedEntryById("1").log("Debug").doOnNext(data ->
@@ -35,21 +39,20 @@ public class RssController {
 
     @GetMapping("/")
     public Mono<String> getEntries(Model model) {
-        Map<String, String> publisherUrls = publishers.getName();
-        AtomicInteger counter = new AtomicInteger(1);
-        return Flux.fromIterable(publisherUrls.entrySet())
-                .flatMap(pub -> getMostRecentFeedIdByPubId(String.valueOf(pub.getKey()))
+        Map<String, String> publisherNames = publishers.getName();
+        return Flux.fromIterable(publisherNames.entrySet())
+                .flatMap(pub -> getMostRecentFeedIdByPubId(String.valueOf(pub.getKey())) // using the most recent feed id to get the entries
                         .flatMap(this::getEntriesForFeedId)
                 )
-                .collectList()// using the most recent feed id to get the entries
+                .collectList()
                 .doOnNext(allEntriesList -> {
                     allEntriesList.forEach(entryListData -> {
-                        log.info(entryListData.toString() + ": entryListData");
-                        int index = counter.getAndIncrement();
-                        log.info(index + ": counter 2nd" );
-                        String pubName = publisherUrls.get(String.valueOf(index));
-                        model.addAttribute("pubName" + index, pubName);
-                        model.addAttribute("entryListData" + index, entryListData);
+                        log.info("{}: entryListData", entryListData.toString());
+                        String pubId = entryListData.getFirst().getPubId();
+                        log.info("{}: pubId", pubId);
+                        String pubName = publisherNames.get(pubId);
+                        model.addAttribute("pubName" + pubId, pubName);
+                        model.addAttribute("entryListData" + pubId, entryListData);
                     });
                 })
                 .then(Mono.just("index"));

@@ -9,7 +9,7 @@
         <relativePath /><!-- lookup parent from repository -->
     </parent>
     <groupId>com.pocketgroovy.rss.demo.client</groupId>
-    <artifactId>rssclient</artifactId>
+    <artifactId>RssReaderDemoClient</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>rssclient</name>
 

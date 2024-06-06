@@ -17,7 +17,7 @@ public class RssService {
     private final WebClient webClient;
 
     public RssService(WebClient.Builder webClientBuilder) throws SSLException {
-        this.webClient = webClientBuilder.baseUrl("http://localhost:8080/api/v1/rss").build();
+        this.webClient = webClientBuilder.baseUrl("https://rssreader.pocketgroovy.com/api/v1/rss/").build();
     }
 
     public Mono<FeedDTO> getFeedById(String id) {

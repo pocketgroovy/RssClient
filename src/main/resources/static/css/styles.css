@@ -10669,7 +10669,6 @@ footer {
 
 header.masthead {
   position: relative;
-  margin-bottom: 3rem;
   padding-top: calc(8rem + 57px);
   padding-bottom: 8rem;
   background: no-repeat center center;
@@ -10687,6 +10686,7 @@ header.masthead:before {
   background-color: #212529;
   opacity: 0.5;
 }
+
 header.masthead .page-heading,
 header.masthead .post-heading,
 header.masthead .site-heading {
@@ -10761,7 +10761,7 @@ header.masthead .post-heading .meta a {
   font-size: 0.875rem;
   font-style: italic;
   display: block;
-  margin: 0;
+margin-bottom: 3rem;
   padding: 0.625rem;
   text-align: center;
 }
