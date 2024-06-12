@@ -10,6 +10,8 @@ import lombok.ToString;
 public class FeedEntryDTO {
     private Long id;
 
+    private String pubId;
+
     private String title;
 
     private String description;
@@ -19,4 +21,6 @@ public class FeedEntryDTO {
     private String author;
 
     private String guid;
+
+    private String pubDate;
 }

@@ -9,7 +9,7 @@
         <relativePath /><!-- lookup parent from repository -->
     </parent>
     <groupId>com.pocketgroovy.rss.demo.client</groupId>
-    <artifactId>rssclient</artifactId>
+    <artifactId>RssReaderDemoClient</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>rssclient</name>
 
@@ -67,6 +67,22 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-test</artifactId>
+            <version>3.2.5</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.projectreactor</groupId>
+            <artifactId>reactor-test</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
