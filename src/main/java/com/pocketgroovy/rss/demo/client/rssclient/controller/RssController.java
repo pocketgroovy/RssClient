@@ -1,6 +1,6 @@
 package com.pocketgroovy.rss.demo.client.rssclient.controller;
 
-import com.pocketgroovy.rss.demo.client.rssclient.config.Publishers;
+import com.pocketgroovy.rss.demo.client.rssclient.config.Properties;
 import com.pocketgroovy.rss.demo.client.rssclient.dto.FeedEntryDTO;
 import com.pocketgroovy.rss.demo.client.rssclient.service.RssService;
 import lombok.extern.slf4j.Slf4j;
@@ -20,10 +20,11 @@ public class RssController {
     @Autowired
     private RssService rssService;
 
-    private final Publishers publishers;
+    @Autowired
+    private final Properties properties;
 
-    public RssController(Publishers publishers) {
-        this.publishers = publishers;
+    public RssController(Properties properties) {
+        this.properties = properties;
     }
 
     @GetMapping("/about")
@@ -39,7 +40,7 @@ public class RssController {
 
     @GetMapping("/")
     public Mono<String> getEntries(Model model) {
-        Map<String, String> publisherNames = publishers.getName();
+        Map<String, String> publisherNames = properties.getPublishers();
         return Flux.fromIterable(publisherNames.entrySet())
                 .flatMap(pub -> getMostRecentFeedIdByPubId(String.valueOf(pub.getKey())) // using the most recent feed id to get the entries
                         .flatMap(this::getEntriesForFeedId)
