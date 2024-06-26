@@ -1,13 +1,11 @@
 package com.pocketgroovy.rss.demo.client.rssclient.controller;
 
-import com.pocketgroovy.rss.demo.client.rssclient.config.Publishers;
+import com.pocketgroovy.rss.demo.client.rssclient.config.Properties;
 import com.pocketgroovy.rss.demo.client.rssclient.dto.FeedDTO;
 import com.pocketgroovy.rss.demo.client.rssclient.dto.FeedEntryDTO;
 import com.pocketgroovy.rss.demo.client.rssclient.service.RssService;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -16,8 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import org.springframework.test.web.servlet.MockMvc;
-import reactor.core.CoreSubscriber;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -38,7 +34,7 @@ public class RssControllerTests {
     private RssService rssService;
 
     @MockBean
-    private Publishers publishers;
+    private Properties properties;
 
     @LocalServerPort
     private int port;
@@ -48,7 +44,7 @@ public class RssControllerTests {
 
     @Test
     void contextLoadsFeedController() {
-        assertThat(publishers).isNotNull();
+        assertThat(properties).isNotNull();
     }
     @Test
     void requestGetAboutPage() throws Exception {
@@ -108,7 +104,7 @@ public class RssControllerTests {
 
 
         List<FeedEntryDTO> mockEntries = Arrays.asList(entry1, entry2);
-        when(publishers.getName()).thenReturn(publisherNames);
+        when(properties.getPublishers()).thenReturn(publisherNames);
         when(rssService.getMostRecentFeedByPubId("1")).thenReturn(Mono.just(mockEntry));
         when(rssService.getMostRecentFeedByPubId("2")).thenReturn(Mono.just(mockEntry2));
 
